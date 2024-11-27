@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 from sklearn.model_selection import KFold
+from sklearn.metrics import roc_curve, roc_auc_score
+import numpy as np
+from sklearn.metrics import precision_recall_curve, average_precision_score
 
 # Device configuration (use GPU if available)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -252,3 +255,74 @@ def plot_confusion_matrix(model, test_loader):
 plot_confusion_matrix(model, test_loader)
 
 
+
+def plot_roc_curve(model, test_loader):
+    model.eval()
+    all_labels = []
+    all_probs = []  # Store predicted probabilities
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images, labels = images.to(device), labels.to(device).float().view(-1, 1)
+            outputs = model(images)
+            probabilities = torch.sigmoid(outputs).cpu().numpy()  # Apply sigmoid to get probabilities
+            all_probs.extend(probabilities)
+            all_labels.extend(labels.cpu().numpy())
+
+    # Convert lists to numpy arrays
+    all_labels = np.array(all_labels)
+    all_probs = np.array(all_probs)
+
+    # Compute ROC curve and AUC
+    fpr, tpr, thresholds = roc_curve(all_labels, all_probs)
+    auc = roc_auc_score(all_labels, all_probs)
+
+    # Plot the ROC curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, label=f"ROC Curve (AUC = {auc:.2f})")
+    plt.plot([0, 1], [0, 1], 'r--', label="Random Guess")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("Receiver Operating Characteristic (ROC) Curve")
+    plt.legend(loc="lower right")
+    plt.show()
+
+# Call the function to plot the ROC curve
+plot_roc_curve(model, test_loader)
+
+
+
+def plot_precision_recall_curve(model, test_loader):
+    model.eval()
+    all_labels = []
+    all_probs = []  # Store predicted probabilities
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images, labels = images.to(device), labels.to(device).float().view(-1, 1)
+            outputs = model(images)  # Raw logits
+            probabilities = torch.sigmoid(outputs).cpu().numpy()  # Convert logits to probabilities
+            all_probs.extend(probabilities.flatten())  # Flatten to 1D
+            all_labels.extend(labels.cpu().numpy())
+
+    # Convert lists to numpy arrays
+    all_labels = np.array(all_labels)
+    all_probs = np.array(all_probs)
+
+    # Compute precision-recall curve
+    precision, recall, thresholds = precision_recall_curve(all_labels, all_probs)
+
+    # Compute average precision score
+    avg_precision = average_precision_score(all_labels, all_probs)
+
+    # Plot Precision-Recall curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(recall, precision, label=f"Precision-Recall Curve (AP = {avg_precision:.2f})")
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.title("Precision-Recall Curve")
+    plt.legend(loc="lower left")
+    plt.show()
+
+# Call the function to plot the Precision-Recall curve
+plot_precision_recall_curve(model, test_loader)
