@@ -1,5 +1,6 @@
 # PneumoniaDetectionModel
 Course Project for Introduction to Machine Learning (DS3000) at Western University
+
 Project Members:
 - Richard Augustine (raugust3@uwo.ca)
 - Hasan Kaware (hkaware@uwo.ca)
