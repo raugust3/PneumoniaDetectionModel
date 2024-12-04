@@ -18,7 +18,7 @@ Instructions for Running the Code
 2 - **Execute test.py**
 To test the model or make predictions, execute the test.py file:
 
-''python test.py''
+``python test.py``
 
 The script will:
 - Load the pre-trained weights.
