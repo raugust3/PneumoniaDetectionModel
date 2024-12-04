@@ -15,6 +15,8 @@ Instructions for Running the Code
 - Use the link inside the document to download the pre-trained model weights.
 - Save the downloaded file as pneumonia_detection_model.pth in the same directory as the repository files.
 
+``model_path="pneumonia_detection_model.pth"``
+
 2 - **Execute test.py**
 To test the model or make predictions, execute the test.py file:
 
@@ -27,9 +29,10 @@ The script will:
 
 3 - **View Prediction**
 By default, the script uses a sample image (img.png) provided in the repository for single-image prediction.
+``image_path = "img.png"``
 To test with a different image:
 - Update the image_path variable in the test.py script with the path to your desired image:
-image_path = "your_image_name.png"
+``image_path = "your_image_name.png"``
 - Make sure the new image is in the same directory as the script, or provide a full path to the image.
 
 Note: Ensure you have the required libraries installed -
