@@ -30,6 +30,7 @@ The script will:
 3 - **View Prediction**
 By default, the script uses a sample image (img.png) provided in the repository for single-image prediction.
 ``image_path = "img.png"``
+
 To test with a different image:
 - Update the image_path variable in the test.py script with the path to your desired image:
 ``image_path = "your_image_name.png"``
