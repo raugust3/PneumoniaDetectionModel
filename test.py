@@ -65,7 +65,7 @@ class PneumoniaCNN(nn.Module):
 def predict_pneumonia(image_path, model_path="pneumonia_detection_model.pth"):
     # Load the model
     model = PneumoniaCNN().to(device)
-    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.load_state_dict(torch.load(model_path, map_location=device,weights_only=True))
     model.eval()  # Set to evaluation mode
 
     # Define the same transformations as used during training
