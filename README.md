@@ -17,7 +17,12 @@ Instructions for Running the Code
 
 ``model_path="pneumonia_detection_model.pth"``
 
-2 - **Execute test.py**
+2 - **Install Dependencies**
+
+Run the following command in your terminal:
+pip install torch torchvision scikit-learn matplotlib seaborn pillow
+
+3 - **Execute test.py**
 To test the model or make predictions, execute the test.py file:
 
 ``python test.py``
@@ -27,7 +32,7 @@ The script will:
 - Evaluate the model on the test dataset (if configured).
 - Predict labels and confidence scores for images.
 
-3 - **View Prediction**
+4 - **View Prediction**
 By default, the script uses a sample image (img.png) provided in the repository for single-image prediction.
 ``image_path = "img.png"``
 
@@ -36,5 +41,5 @@ To test with a different image:
 ``image_path = "your_image_name.png"``
 - Make sure the new image is in the same directory as the script, or provide a full path to the image.
 
-Note: Ensure you have the required libraries installed -
-pip install torch torchvision scikit-learn matplotlib seaborn pillow
+Note: Each time the model is trained, the resulting curves may vary due to the random initialization and stochastic optimization inherent in the training process. Additionally, if the main script detects an existing pre-trained model, it may load this model, resulting in completely different outputs that do not reflect the current training process. For reference, a supplementary video has been included in the repository to demonstrate how the metrics were obtained.
+
