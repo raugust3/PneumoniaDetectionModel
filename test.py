@@ -93,8 +93,14 @@ def predict_pneumonia(image_path, model_path="pneumonia_detection_model.pth"):
 
 # Example usage
 if __name__ == "__main__":
-    image_path = "img.png"
-    model_path = "pneumonia_detection_model.pth"  # Path to your trained model
+    image_path = "img.png" # Path to the testing image
+    model_path = "pneumonia_detection_model.pth"  # Path to the trained model
+    # Note: Each time the model is trained, the resulting curves may vary due to 
+    # the random initialization and stochastic optimization inherent in the training process. 
+    # Additionally, if the main script detects an existing pre-trained model, it may load 
+    # this model, resulting in completely different outputs that do not reflect the current 
+    # training process. For reference, a supplementary video has been included in the repository 
+    # to demonstrate how the metrics were obtained.
 
     result = predict_pneumonia(image_path, model_path)
     label, confidence = result
